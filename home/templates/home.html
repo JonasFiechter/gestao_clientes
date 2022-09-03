@@ -1,36 +1,43 @@
 {% extends 'base.html' %}
-
-
+{% load static %}
 {% block title %} Seja bem vindo {% endblock %}
-
 {% block main %}
+	<div class="row">
+		<div class="col">
 
+		</div>
 
-    <div class="row">
-        <div class="col">
+		<div class="col-6">
+			<h1>Seja bem vindo</h1>
+			{{ VAR }}
+		</div>
 
-        </div>
-
-        <div class="col-6">
-            <h1>Seja bem vindo</h1>
-        </div>
-
-        <div class="col-sm">
-            {% if user.is_authenticated %}
-                <p>Ola {{ user.username }}</p>
-                <a href="{% url 'logout' %}">Sair</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="btn btn-info">Entrar</a>
-            {% endif %}
-        </div>
-    </div>
+		<div class="col-sm">
+			{% if user.is_authenticated %}
+				<p>Ola {{ user.username }}</p>
+				<a href="{% url 'logout' %}">Sair</a>
+			{% else %}
+				<a href="{% url 'login' %}" class="btn btn-info">Entrar</a>
+			{% endif %}
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<ul>
+				<li>
+					<input placeholder="Place here!" id="test-input" name="input" type="text">
+					<label for="test-input">DJANGO COURSE! </label>
+				</li>
+			</ul>
+			<button type="submit">Send</button>
+		</form>
+	</div>
 
 {% endblock %}
 
 {% block footer %}
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Desenvolvimento web com Django 2.x</span>
-      </div>
-    </footer>
+	<footer class="footer">
+		<div class="container">
+			<span class="text-muted">Desenvolvimento web com Django 2.x</span>
+		</div>
+	</footer>
 {% endblock %}

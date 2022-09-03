@@ -1,0 +1,5 @@
+{% load static %}
+<h1>PERSON LIST</h1>
+{% for p in object_list %}
+    <h3><a href="{% url 'person_detail' p.pk %}">{{ p }}</a></h3>
+{% endfor %}

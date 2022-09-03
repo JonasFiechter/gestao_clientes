@@ -1,0 +1,4 @@
+<h1>name => {{ object.first_name }} {{ object.last_name }}</h1>
+<h3>age => {{ object.age }}</h3>
+<h3>salary => {{ object.salary }}</h3>
+<a href="{% url 'person_update_cbv' object.id %}">EDIT</a>
