@@ -1,4 +1,14 @@
-<h1>name => {{ object.first_name }} {{ object.last_name }}</h1>
-<h3>age => {{ object.age }}</h3>
-<h3>salary => {{ object.salary }}</h3>
-<a href="{% url 'person_update_cbv' object.id %}">EDIT</a>
+<body>
+	<h1>name => {{ object.first_name }} {{ object.last_name }}</h1>
+	<h3>age => {{ object.age }}</h3>
+	<h3>salary => {{ object.salary }}</h3>
+	<a href="{% url 'person_update_cbv' object.id %}">EDIT</a>
+	<h1>Vendas:</h1>
+	{% for venda in vendas %}
+		<h2>Venda: {{ venda.id }}</h2>
+		<h3>Produtos:</h3>
+		{% for produto in venda.produtos.all %}
+			<h5>{{ produto.id }} -> {{ produto.descricao }}</h5>
+		{% endfor %}
+	{% endfor %}
+</body>

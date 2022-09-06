@@ -1,18 +1,16 @@
-from pyexpat import model
-from typing import List
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Person
+from .models import Person, Venda
 from .forms import PersonForm
 
 
 @login_required
 def persons_list(request):
     persons = Person.objects.all()
-    return render(request, 'person.html', {'persons': persons})
+    return render(request, 'clientes/person.html', {'persons': persons})
 
 
 @login_required
@@ -22,7 +20,7 @@ def persons_new(request):
     if form.is_valid():
         form.save()
         return redirect('person_list')
-    return render(request, 'person_form.html', {'form': form})
+    return render(request, 'clientes/person_form.html', {'form': form})
 
 
 @login_required
@@ -32,9 +30,9 @@ def persons_update(request, id):
 
     if form.is_valid():
         form.save()
-        return redirect('person_list')
+        return redirect('clientes/person_list')
 
-    return render(request, 'person_form.html', {'form': form})
+    return render(request, 'clientes/person_form.html', {'form': form})
 
 
 @login_required
@@ -45,12 +43,12 @@ def persons_delete(request, id):
         person.delete()
         return redirect('person_list')
 
-    return render(request, 'person_delete_confirm.html', {'person': person})
+    return render(request, 'clientes/person_delete_confirm.html', {'person': person})
 
 
 class MyView3(ListView):
     model = Person
-    template_name: str = 'person_list.html'
+    template_name: str = 'clientes/person.html'
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         my_list = context['object_list']
@@ -65,9 +63,13 @@ class MyView4(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['vendas'] = Venda.objects.filter(pessoa=self.object.id)
+        for v in context['vendas']:
+            print(v.produtos.all())
         my_object = context['object']
         print(my_object)
         return context
+
 
 class MyView5(CreateView):
     model = Person
