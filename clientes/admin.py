@@ -5,10 +5,10 @@ class PersonAdmin(admin.ModelAdmin):
     # fields = ('first_name', 'last_name', 'salary', 'bio', 'photo')
     fieldsets = (
         ('Personal data:', {'fields': ('first_name', 'last_name')}),
-        ('Other data:', {'fields': ('age', 'salary', 'photo')}),
+        ('Other data:', {'fields': ('age', 'salary', 'photo')})
     )
     list_display = ('first_name', 'last_name', 'salary', 'bio', 'photo')
-    list_filter = ('first_name')
+    list_filter = ('first_name',)
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Documento)
